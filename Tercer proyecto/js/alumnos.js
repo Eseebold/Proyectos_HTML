@@ -29,13 +29,12 @@ jQuery(document).ready(function ($) {
                     }
                     totalNotaMedia(data);
                });
-
-               var promesaBorrar = $.ajax('http://localhost:2403/alumnos/' + id, {
+/*    var promesaBorrar = $.ajax('http://localhost:2403/alumnos/' + id, {
                     type: "DELETE"
                });
                promesaBorrar.success(function (data) {}
 
-
+*/
 
                 
 
