@@ -1,0 +1,13 @@
+ /*ASIDE*/
+ 
+ aside {
+   justify-content: center;
+   flex-wrap: wrap;
+   width: 100%;
+   display: flex;
+ }
+ 
+ aside img {
+   width: 500px;
+ }
+ /*FIN ASIDE*/

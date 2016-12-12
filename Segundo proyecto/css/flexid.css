@@ -1,0 +1,100 @@
+#Productos {
+  background: tomato;
+}
+
+#Contacto {
+  background: lightblue;
+}
+
+#Localizacion {
+  background: lightslategrey;
+}
+
+p.Vitamina {
+  width: 160px;
+}
+
+div.Vitamina {
+  margin: 5%;
+  border-radius: 50%;
+  width: 160px;
+}
+
+img.Vitamina {
+  margin: 10px;
+  height: 120px;
+}
+
+img.Vitamina:Hover {
+  filter: invert();
+}
+
+.Color-VitA {
+  background-color: #EE4037;
+}
+
+.Color-VitB1 {
+  background-color: #F7941D;
+}
+
+.Color-VitB2 {
+  background-color: #FCB040;
+}
+
+.Color-VitB3 {
+  background-color: #8EC63F;
+}
+
+.Color-VitB5 {
+  background-color: #0B9444;
+}
+
+.Color-VitB6 {
+  background-color: #056839;
+}
+
+.Color-VitB9 {
+  background-color: #14A79D;
+}
+
+.Color-VitB12 {
+  background-color: #00ADEF;
+}
+
+.Color-VitC {
+  background-color: #283890;
+}
+
+.Color-VitD {
+  background-color: #662E91;
+}
+
+.Color-VitE {
+  background-color: #92278F;
+}
+
+.Color-VitK {
+  background-color: #A01F62;
+}
+
+
+/*
+img.Vitamina {
+  border-radius: 75%;
+}
+*/
+
+h3.Soy {
+  background: green;
+  text-align: center;
+}
+
+h3.Estoy {
+  background: green;
+  text-align: center;
+}
+
+.paraocultar {
+  /* display: none;
+  /**/
+}

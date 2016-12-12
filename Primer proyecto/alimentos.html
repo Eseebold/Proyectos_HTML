@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<!-- esto es un comentario html -->
+<!-- Validador HTML: https://validator.w3.org/ -->
+
+<head>
+   <meta charset="UTF-8">
+   <!-- http://www.w3schools.com/tags/tag_meta.asp -->
+   <meta name="author" content="Erasmo Seebold">
+   <!-- Vista resumen que tiene cuando buscamos en Google 160 caracteres como maximo recomendado -->
+   <meta name="description" content="Primera página web">
+   <!-- Etiqueta que indica zoom inicial de la pantalla -->
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+   <!-- Titulo de la pagina web -->
+   <title id="titulo" class="titulo">Página Web</title>
+   <!-- Favicon de la pagina web -->
+   <link rel="icon" href="#" type="image/gif" sizes="16x16">
+   <!-- http://www.w3schools.com/tags/tag_link.asp -->
+   <!-- http://www.w3schools.com/tags/att_link_media.asp -->
+
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <!-- importar css -->
+   <link href="css/miestilo.css" rel="stylesheet">
+
+
+
+   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript">
+      google.charts.load('current', {
+         'packages': ['corechart']
+      });
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+         var data = google.visualization.arrayToDataTable([
+          ['Vitamine', 'Quantity'],
+          ['A', 11],
+          ['B1', 2],
+          ['B2', 2],
+          ['C', 2],
+          ['D', 7],
+          ['E', 7]
+        ]);
+
+         var options = {
+            title: 'My Daily Activities'
+         };
+
+         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+         chart.draw(data, options);
+      }
+   </script>
+
+</head>
+
+<body>
+   <div id="piechart" style="width: 900px; height: 500px;"></div>
+</body>
+
+</html>

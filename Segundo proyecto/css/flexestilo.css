@@ -1,0 +1,54 @@
+/* Flex */
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-center {
+  justify-content: center;
+}
+
+.flex-section {
+  padding-top: 25px;
+  justify-content: center;
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.flex-container {
+  flex-wrap: wrap;
+  justify-content: center;
+  display: flex;
+  width: 90%;
+}
+
+.flex-item {
+  text-align: center;
+  height: auto;
+}
+
+.flex-title {
+  width: 100%;
+  text-align: center;
+}
+
+.flex-subtitle {
+  width: 100%;
+  text-align: center;
+}
+
+.unoD2 {
+  width: 580px;
+}
+
+.unoD3 {
+  width: 390px;
+}
+
+.unoD4 {
+  width: 295px;
+}
+
+
+/* Fin Flex */

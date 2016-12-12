@@ -1,0 +1,40 @@
+/* Flex */
+
+.flex-section {
+  padding-top: 25px;
+  justify-content: center;
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.flex-title {
+  width: 90%;
+  text-align: center;
+}
+
+.flex-subtitle {
+  width: 100%;
+  text-align: center;
+}
+
+.flex-container {
+  flex-wrap: wrap;
+  justify-content: center;
+  display: flex;
+  width: 90%;
+}
+
+.flex-item {
+  width: 350px;
+}
+
+.unoD2 {
+  width: 500px;
+}
+
+.unoD3 {
+  width: 350px;
+}
+
+
+/* Fin Flex */

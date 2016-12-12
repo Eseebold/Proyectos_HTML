@@ -1,0 +1,207 @@
+        /* SLIDER */
+        
+        @-moz-keyframes slider {
+          /*FF 13 -16 */
+          0% {
+            left: 0%;
+          }
+          20% {
+            left: 0%;
+          }
+          25% {
+            left: -100%;
+          }
+          45% {
+            left: -100%;
+          }
+          50% {
+            left: -200%;
+          }
+          70% {
+            left: -200%;
+          }
+          75% {
+            left: -300%;
+          }
+          95% {
+            left: -300%;
+          }
+          100% {
+            left: -400%;
+          }
+        }
+        
+        @-webkit-keyframes slider {
+          0% {
+            left: 0%;
+          }
+          20% {
+            left: 0%;
+          }
+          25% {
+            left: -100%;
+          }
+          45% {
+            left: -100%;
+          }
+          50% {
+            left: -200%;
+          }
+          70% {
+            left: -200%;
+          }
+          75% {
+            left: -300%;
+          }
+          95% {
+            left: -300%;
+          }
+          100% {
+            left: -400%;
+          }
+        }
+        
+        @-ms-keyframes slider {
+          0% {
+            left: 0%;
+          }
+          20% {
+            left: 0%;
+          }
+          25% {
+            left: -100%;
+          }
+          45% {
+            left: -100%;
+          }
+          50% {
+            left: -200%;
+          }
+          70% {
+            left: -200%;
+          }
+          75% {
+            left: -300%;
+          }
+          95% {
+            left: -300%;
+          }
+          100% {
+            left: -400%;
+          }
+        }
+        
+        @-khtml-keyframes slider {
+          0% {
+            left: 0%;
+          }
+          20% {
+            left: 0%;
+          }
+          25% {
+            left: -100%;
+          }
+          45% {
+            left: -100%;
+          }
+          50% {
+            left: -200%;
+          }
+          70% {
+            left: -200%;
+          }
+          75% {
+            left: -300%;
+          }
+          95% {
+            left: -300%;
+          }
+          100% {
+            left: -400%;
+          }
+        }
+        
+        @-o-keyframes slider {
+          0% {
+            left: 0%;
+          }
+          20% {
+            left: 0%;
+          }
+          25% {
+            left: -100%;
+          }
+          45% {
+            left: -100%;
+          }
+          50% {
+            left: -200%;
+          }
+          70% {
+            left: -200%;
+          }
+          75% {
+            left: -300%;
+          }
+          95% {
+            left: -300%;
+          }
+          100% {
+            left: -400%;
+          }
+        }
+        
+        @keyframes slider {
+          /* W3C starndard*/
+          0% {
+            left: 0%;
+          }
+          20% {
+            left: 0%;
+          }
+          25% {
+            left: -100%;
+          }
+          45% {
+            left: -100%;
+          }
+          50% {
+            left: -200%;
+          }
+          70% {
+            left: -200%;
+          }
+          75% {
+            left: -300%;
+          }
+          95% {
+            left: -300%;
+          }
+          100% {
+            left: -400%;
+          }
+        }
+        
+        section {
+          overflow: hidden;
+          box-sizing: border-box;
+        }
+        
+        section figure img {
+          width: calc(100%/2);
+          /*  border-image-width:0!important;*/
+          box-sizing: border-box;
+          float: left;
+        }
+        
+        section figure {
+          position: relative;
+          width: 1300%;
+          /*500vw;*/
+          margin: 0;
+          left: 0;
+          box-sizing: border-box;
+          padding: 0;
+          animation: 10s slider infinite;
+        }
+        /*FIN SLIDER */

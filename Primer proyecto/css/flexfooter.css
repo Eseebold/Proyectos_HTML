@@ -1,0 +1,71 @@
+ /* Navegacion */
+ 
+ footer ul {
+   position: fixed;
+   display: flex;
+   width: 90%;
+   left: 5%;
+   right: 5%;
+   z-index: 7000;
+   list-style-type: none;
+   margin: 0;
+   padding: 0;
+   overflow: hidden;
+   background-color: dimgrey;
+ }
+ 
+ header ul {
+   top: 0;
+ }
+ 
+ footer ul li {
+   float: left;
+ }
+ 
+ footer ul li a {
+   display: block;
+   color: white;
+   text-align: center;
+   padding: 14px 16px;
+   text-decoration: none;
+ }
+ 
+ ul.pie li a:hover:not(.active) {
+   background-color: #111;
+ }
+ 
+ footer ul li a.activa {
+   background-color: blue;
+ }
+ /*Fin Navegacion*/
+ 
+ .youtube,
+ .facebook,
+ .twitter {
+   height: 21px;
+   width: 19px;
+ }
+ 
+ .youtube {
+   background: url(/img/spritessocialmedia.png) no-repeat -856px -185px;
+ }
+ 
+ .youtube:hover {
+   background: url(/img/spritessocialmedia.png) no-repeat -856px -101px;
+ }
+ 
+ .twitter {
+   background: url(/img/spritessocialmedia.png) no-repeat -687px -184px;
+ }
+ 
+ .twitter:hover {
+   background: url(/img/spritessocialmedia.png) no-repeat -687px -100px;
+ }
+ 
+ .facebook {
+   background: url(/img/spritessocialmedia.png) no-repeat -17px -184px;
+ }
+ 
+ .facebook:hover {
+   background: url(/img/spritessocialmedia.png) no-repeat -17px -100px;
+ }
