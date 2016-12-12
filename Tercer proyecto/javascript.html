@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="no-js" lang="es">
+
+<head>
+     <meta charset="utf-8">
+     <meta http-equiv="x-ua-compatible" content="ie=edge">
+     <title>Ipartek</title>
+     <meta name="description" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="apple-touch-icon" href="apple-touch-icon.png">
+     <!-- Place favicon.ico in the root directory -->
+     <link rel="stylesheet" href="css/estandar.css">
+     <link rel="stylesheet" href="css/footer.css">
+     <link rel="stylesheet" href="css/modal.css">
+     <link rel="stylesheet" href="css/blinker.css">
+     <!-- -->
+
+
+
+     <script src="js/main.js"></script>
+</head>
+
+<body>
+  <div>
+
+  </div>
+     <main class="flexcontainer">
+
+          <section id="alumnos">
+               <header>
+                    <h2>Listado de Alumnos</h2></header>
+               <div>
+                    <div class="flexcontainer">
+                         <div class="unoD4">
+                              <button id="botonanuncio">Sorpresa</button>
+                         </div>
+                         <div class="unoD4">
+                              <button id="invocarmodalformularioagregar">Añadir</button>
+                         </div>
+                         <div class="unoD4">
+                              <button>Borrar</button>
+                         </div>
+                    </div>
+
+
+
+                    <span>Número de Alumnos</span>
+               </div>
+               <table id="listado-alumnos">
+                    <thead>
+                         <tr>
+                              <th align="center">
+                                   <input type="checkbox">
+                              </th>
+                              <th>Nombre</th>
+                              <th>Apellidos</th>
+                              <th>UF-1841</th>
+                              <th>UF-1842</th>
+                              <th>UF-1843</th>
+                              <th>UF-1844</th>
+                              <th>UF-1845</th>
+                              <th>UF-1846</th>
+                              <th>Nota Media</th>
+                              <th></th>
+                         </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                    <tfoot>
+                         <tr>
+                              <td colspan="9">Nota Media:</td>
+                              <td colspan="2" id="notamedia"></td>
+                         </tr>
+                    </tfoot>
+
+               </table>
+          </section>
+
+
+
+
+
+
+     </main>
+     <footer>
+          <ul>
+               <li>
+                    <a href="https://www.youtube.com/ " class="youtube " target="_blank "></a>
+               </li>
+               <li>
+                    <a href="https://twitter.com/nicolascagest?lang=es " class="twitter " target="_blank "></a>
+               </li>
+               <li>
+                    <a href="https://es-es.facebook.com/Nicolas.cage.fan.Official/ " class="facebook " target="_blank "></a>
+               </li>
+          </ul>
+     </footer>
+     <!-- FIN FOOTER -->
+     <!-- The Modal -->
+     <div id="modalformularioagregar" class="modal">
+
+          <!-- Modal content -->
+          <div class="modal-content">
+               <div class="modal-header">
+                    <span class="close">×</span>
+                    <h2>Modal Header</h2>
+               </div>
+               <div>
+                    <div class="flexcontainer">
+                         <div class="tresD4">
+                              <label for="dname">Dni</label>
+                              <input type="text" id="dname" name="dniname">
+                         </div>
+                         <div class="unoD4">
+                              <label for="cname">Color</label>
+                              <input type="color" name="cname">
+                         </div>
+                    </div>
+                    <div class="flexcontainer">
+                         <div class="unoD2">
+                              <label for="fname">First Name</label>
+                              <input type="text" id="fname" name="firstname">
+                         </div>
+                         <div class="unoD2">
+                              <label for="lname">Last Name</label>
+                              <input type="text" id="lname" name="lastname">
+                         </div>
+                    </div>
+               </div>
+               <div class="flexcontainer">
+                    <div class="unoD3">
+                         <label for="UF-1841">UF-1841</label>
+                         <input type="number" id="UF-1841" name="UF-1841" min="1" max="5">
+
+                    </div>
+                    <div class="unoD3">
+                         <label for="UF-1842">UF-1842</label>
+                         <input type="number" id="UF-1842" name="UF-1842" min="1" max="5">
+                    </div>
+                    <div class="unoD3">
+                         <label for="UF-1843">UF-1843</label>
+                         <input type="number" id="UF-1843" name="UF-183" min="1" max="5">
+                    </div>
+
+               </div>
+               <div class="flexcontainer">
+
+                    <div class="unoD3">
+                         <label for="UF-1844">UF-1844</label>
+                         <input type="number" id="UF-1844" name="UF-1844" min="1" max="5">
+                    </div>
+                    <div class="unoD3">
+                         <label for="UF-1845">UF-1845</label>
+                         <input type="number" id="UF-1845" name="UF-1845" min="1" max="5">
+                    </div>
+                    <div class="unoD3">
+                         <label for="UF-1846">UF-1846</label>
+                         <input type="number" id="UF-1846" name="UF-1846" min="1" max="5">
+                    </div>
+               </div>
+               <div class="modal-footer">
+                    <div class="flexcontainer">
+                         <div class="unoD2">
+                              <button id="adoptar" name="Adoptar">Adoptar</button>
+                         </div>
+                         <div class="unoD2">
+                              <button id="abortar" name="Abortar">Abortar</button>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </div>
+
+     <!--   anuncio -->
+
+     <div id="ventanaanuncio" class="modal">
+          <div class="modal-content">
+               <div class="flexcontainer">
+
+                    <div class="caja caja-1 "></div>
+                    <div class="caja caja-2 "></div>
+                    <div class="caja caja-3 "></div>
+                    <div class="caja caja-4 "></div>
+                    <div class="caja caja-5 "></div>
+                    <div class="caja caja-6 "></div>
+                    <div class="caja caja-7 "></div>
+                    <div class="caja caja-8 "></div>
+                    <div class="caja caja-9 "></div>
+                    <div class="caja caja-10 "></div>
+                    <div class="caja caja-11 "></div>
+                    <div class="caja caja-12 "></div>
+                    <div class="caja caja-13 "></div>
+                    <div class="caja caja-14 "></div>
+                    <div class="caja caja-15 "></div>
+                    <div class="caja caja-16 "></div>
+
+
+
+
+
+               </div>
+
+
+
+
+
+          </div>
+     </div>
+     <!--   SCRIPTS -->
+
+
+
+     <script src="https://code.jquery.com/jquery-1.12.0.min.js "></script>
+     <script src="js/alumnos.js"></script>
+     <script src="js/modal.js"></script>
+     <script src="js/sorpresa.js"></script>
+
+     <!-- FIN SCRIPTS -->
+
+
+</body>
+
+</html>
