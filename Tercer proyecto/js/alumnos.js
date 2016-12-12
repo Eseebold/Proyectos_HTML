@@ -1,172 +1,187 @@
 $.noConflict();
-var dnies = ["45751880G", "16087431N", "78956490C"];
-var nombres = new Array();
-nombres['45751880G'] = "Imanol";
-nombres['16087431N'] = "Marta";
-nombres['78956490C'] = "Erasmo";
-var apellidos = new Array();
-apellidos["45751880G"] = "Jimenez Lopez";
-apellidos["16087431N"] = "Rivera del Amo";
-apellidos["78956490C"] = "Seebold Guadilla";
-var nUF1841 = new Array();
-nUF1841['45751880G'] = 6;
-nUF1841['16087431N'] = 5;
-nUF1841['78956490C'] = 5;
-var nUF1842 = new Array();
-nUF1842['45751880G'] = 6;
-nUF1842['16087431N'] = 5;
-nUF1842['78956490C'] = 5;
-var nUF1843 = new Array();
-nUF1843['45751880G'] = 6;
-nUF1843['16087431N'] = 5;
-nUF1843['78956490C'] = 5;
-var nUF1844 = new Array();
-nUF1844['45751880G'] = 7;
-nUF1844['16087431N'] = 5;
-nUF1844['78956490C'] = 5;
-var nUF1845 = new Array();
-nUF1845['45751880G'] = 7;
-nUF1845['16087431N'] = 5;
-nUF1845['78956490C'] = 5;
-var nUF1846 = new Array();
-nUF1846['45751880G'] = 7;
-nUF1846['16087431N'] = 5;
-nUF1846['78956490C'] = 5;
+
 
 jQuery(document).ready(function ($) {
-     function cargarAlumnos() {
-          var cantidad = dnies.length;
-          for (var i = 0; i < cantidad; i++) {
-               var dni = dnies[i];
-               var nombre = nombres[dni];
-               var apellido = apellidos[dni];
-               var notas = [nUF1841[dni], nUF1842[dni], nUF1843[dni], nUF1844[dni], nUF1845[dni], nUF1846[dni]];
 
-               var html_text = "<tr>" +
-                    "<tr>" +
-                    "<td align='center'><input type='checkbox' value='" + dni + "'/></td>" +
-                    "<td>" + nombre + "</td>" +
-                    "<td>" + apellido + "</td>" +
-                    "<td>" + nUF1841[dni] + "</td>" +
-                    "<td>" + nUF1842[dni] + "</td>" +
-                    "<td>" + nUF1843[dni] + "</td>" +
-                    "<td>" + nUF1844[dni] + "</td>" +
-                    "<td>" + nUF1845[dni] + "</td>" +
-                    "<td>" + nUF1846[dni] + "</td>" +
-                    "<td>" + calcularMedia(notas) + "</td>" +
-                    "<td align='center'><button>Editar</button></td>" +
-                    "</tr>";
-               $('#listado-alumnos tbody').append(html_text);
+
+               mostrarNumeroAlumnos();
+
+
+               var promesaCarga = $.ajax('http://localhost:2403/alumnos', {
+                    type: "GET"
+               });
+               promesaCarga.success(function (data) {
+                    var numAlumnos = data.length;
+                    //CODIGO
+                    for (var i = 0; i < numAlumnos; i++) {
+                         var id = data[i].id;
+                         var dni = data[i].dni;
+                         var nombre = data[i].nombre;
+                         var apellido = data[i].apellidos;
+                         var notas = new Array();
+                         notas.UF1841 = data[i].notas.UF1841;
+                         notas.UF1842 = data[i].notas.UF1842;
+                         notas.UF1843 = data[i].notas.UF1843;
+                         notas.UF1844 = data[i].notas.UF1844;
+                         notas.UF1845 = data[i].notas.UF1845;
+                         notas.UF1846 = data[i].notas.UF1846;
+                         insertarAlumnoTabla(dni, nombre, apellido, notas)
+                    }
+                    totalNotaMedia(data);
+               });
+
+               var promesaBorrar = $.ajax('http://localhost:2403/alumnos/' + id, {
+                    type: "DELETE"
+               });
+               promesaBorrar.success(function (data) {}
+
+
+
+                
+
+
+
+
+                    $("#listado-alumnos tbody button").click(function (e) {
+                         alert("Has pulsado en editar click");
+                    }); $("#listado-alumnos tbody").on("click", "button", function (e) {
+                         alert("Has pulsado en editar con ON");
+                    }); $("#listado-alumnos thead input").click(function (e) {
+                         if ($(this).prop("checked")) {
+                              $("#listado-alumnos tbody input").prop("checked", true);
+                         } else {
+                              $("#listado-alumnos tbody input").prop("checked", false);
+                         }
+                    }); $("a[href='s1'],a[href='#s2']").click(function (e) {
+                         e.preventDefault();
+                    }); $('#productos').find("a.btn").click(function (e) {
+                         var dni = $('#dni').val();
+                         var letra = calcularLetra(parseInt(dni, 10));
+                         $('#productos').find("span.resultado").text(letra);
+                         e.preventDefault();
+                         return false;
+                    }); $("#alumnos div button.btn-info").on("click", function (e) {
+                         alert("Has pulsado añadir");
+                         $("#myModal").css("display", "block");
+
+                    }); $("#botonBorrar").on("click", function (e) {
+                         alert("Has pulsado borrar");
+
+                         //0 Recoger el dni de la vista
+                         $("#listado-alumnos tbody tr input:checked").each(function (e) {
+                              var codigo = alert($(this).val());
+                              //1 Borrado de la vista
+                              borradoVista();
+                              //2 Borrado de la BBDD
+                              borrarAlumno(codigo);
+                              mostrarNumeroAlumnos();
+                         });
+                    });
+
+                    function mostrarNumeroAlumnos() {
+                         $("#alumnos div span:eq(0)").text("Número de Alumnos: " + 1);
+
+                    }
+
+                    function borradoVista() {
+                         $("#listado-alumnos tbody tr input:checked").parents("tr").remove();
+                    }
+                    /* INICIO DEL METODO: INSERTAR ALUMNO TABLA*/
+
+                    function insertarAlumnoTabla(dni, nombre, apellido, notas) {
+                         var html_text = "<tr>" +
+                              "<td align='center'><input type='checkbox' value='" + dni + "'/></td>" +
+                              "<td>" + nombre + "</td>" +
+                              "<td>" + apellido + "</td>" +
+                              "<td>" + notas.UF1841 + "</td>" +
+                              "<td>" + notas.UF1842 + "</td>" +
+                              "<td>" + notas.UF1843 + "</td>" +
+                              "<td>" + notas.UF1844 + "</td>" +
+                              "<td>" + notas.UF1845 + "</td>" +
+                              "<td>" + notas.UF1846 + "</td>" +
+                              "<td>" + calcularMedia(notas).toFixed(2) + "</td>" +
+                              "<td align='center'><button>Editar</button></td>" +
+                              "</tr>";
+                         $('#listado-alumnos tbody').append(html_text);
+                    }
+                    /*FIN DEL METODO: INSERTAR ALUMNO TABLA*/
+                    /* INICIO DEL METODO: TOTAL NOTA MEDIA*/
+                    function totalNotaMedia(data) {
+                         var total = 0;
+                         var cantidad = data.length;
+                         for (var i = 0; i < data.length; i++) {
+                              total = total + calcularMedia(data[i].notas);
+                         }
+                         total = total / cantidad;
+                         var html_text = total;
+                         $('#notamedia').append(html_text);
+                    }
+                    /*FIN DEL METODO: TOTAL NOTA MEDIA*/
+
+               });
+
+          /*INICIO DEL METODO: CALCULAR MEDIA*/
+
+          function calcularMedia(notas) {
+               var media = 0;
+
+               //   Este sistema es MAS costoso a nivel de rendimiento pero si el array cambia el metodo se actualiza solo
+               var len = Object.keys(notas).length;
+               for (var i = 0; i < len; i++) {
+                    media += Object.values(notas)[i];
+               }
+               var media = media / len;
+               //     
+               //   Este sistema es MENOS costoso a nivel de rendimiento pero si el array cambia hay que actualizar el metodo
+               //var media = (notas.UF1841+notas.UF1842+notas.UF1843+notas.UF1844+notas.UF1845+notas.UF1846)/Object.keys(notas).length;
+               //     
+               return media;
           }
-          mostrarNAlumnos();
-     }
+          /*FIN DEL METODO: CALCULAR MEDIA*/
+          /*INICIO DEL METODO: AGREGAR ALUMNO*/
 
-     function totalnotamedia() {
-          var cantidad = dnies.length;
-          var total = 0;
-          for (var i = 0; i < cantidad; i++) {
-               var dni = dnies[i];
-               var notas = [nUF1841[dni], nUF1842[dni], nUF1843[dni], nUF1844[dni], nUF1845[dni], nUF1846[dni]];
-
-               total = total + calcularMedia(notas);
+          function agregarAlumno(dni, nombre, apellido, notas) {
 
           }
-          total = total / cantidad;
-          var html_text = total;
-          $('#notamedia').append(html_text);
-     }
+          /*FIN DEL METODO:  AGREGAR ALUMNO*/
+          /*INICIO DEL METODO: ACTUALIZAR ALUMNO*/
 
-     $("#listado-alumnos tbody button").click(function (e) {
-          alert("HAs pulsado en editar click");
-     });
-     $("#listado-alumnos tbody").on("click", "button", function (e) {
-          alert("HAs pulsado en editar con ON");
-     });
-     $("#listado-alumnos thead input").click(function (e) {
-          // $("#listado-alumnos tbody input[type='checkbox']").checked(true);
-          //attr vs (prop e is) ---> tiempo de carga
-          // prop vs is ---> prop identifica elementos cargados dinamicamente mientras is no
+          function actualizar(dni, nombre, apellido, notas) {
 
-          if ($(this).prop("checked")) {
-               $("#listado-alumnos tbody input").prop("checked", true);
-          } else {
-               $("#listado-alumnos tbody input").prop("checked", false);
           }
+          /*FIN DEL METODO:  ACTUALIZAR ALUMNO*/
+          /*INICIO DEL METODO: VER ALUMNO*/
 
+          function ver(dni, nombre, apellido, notas) {
 
-     });
-     cargarAlumnos();
-     totalnotamedia();
-     $("a[href='s1'],a[href='#s2']").click(function (e) {
-          e.preventDefault();
-
-     });
-     $('#productos').find("a.btn").click(function (e) {
-          var dni = $('#dni').val();
-          var letra = calcularLetra(parseInt(dni, 10));
-          $('#productos').find("span.resultado").text(letra);
-          e.preventDefault();
-          return false;
-     });
-     $("#alumnos div button.btn-info").on("click", function (e) {
-          alert("Has pulsado añadir");
-          $("#myModal").css("display", "block");
-
-     });
-     $("#alumnos div button.btn-danger").on("click", function (e) {
-
-          //0 Recoger el dni de la vista
-          $("#listado-alumnos tbody tr input:checked").each(function (e) {
-               var codigo = alert($(this).val());
-               //1 Borrado de la vista
-               borradoVista();
-               //2 Borrado de la BBDD
-               borradoBBDD(codigo);
-               mostrarNAlumnos();
-          });
-     });
-
-
-     function mostrarNAlumnos() {
-          $("#alumnos div span:eq(0)").text("Número de Alumnos: " + dnies.length)
-     }
-
-     function borradoVista() {
-          $("#listado-alumnos tbody tr input:checked").parents("tr").remove();
-     }
-     //tracear();
-});
-
-
-
-function borradoBBDD(codigo) {
-     var i = 0;
-     var len = dnies.length;
-     var found = false;
-     var pos = -1;
-     while (i < len && found == false) {
-          if (codigo == dnies[i]) {
-               found = true;
-               pos = i;
           }
-          i++;
-     }
-     if (pos != -1) {
-          dnies.splice(pos, 1);
-          delete nombres[codigo];
-          delete apellidos[codigo];
-          //....
-     }
-}
+          /*FIN DEL METODO:  VER ALUMNO*/
+          /*INICIO DEL METODO: BORRAR ALUMNO*/
 
-function calcularMedia(numeros) {
-     var media = 0;
-     var len = numeros.length
-     for (var i = 0; i < len; i++) {
-          media += numeros[i];
-     }
-     media = media / len;
-     return media;
-}
+          function borrar(dni) {
 
-function insertarAlumnoTabla(dni, nombre, apellido, )
+          }
+          /*FIN DEL METODO:  BORRAR ALUMNO*/
+          /*
+
+
+          function borradoBBDD(codigo) {
+               var i = 0;
+               var len = dnies.length;
+               var found = false;
+               var pos = -1;
+               while (i < len && found == false) {
+                    if (codigo == dnies[i]) {
+                         found = true;
+                         pos = i;
+                    }
+                    i++;
+               }
+               if (pos != -1) {
+                    dnies.splice(pos, 1);
+                    delete nombres[codigo];
+                    delete apellidos[codigo];
+                    //....
+               }
+          }
+          */

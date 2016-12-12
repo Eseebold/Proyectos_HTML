@@ -2,7 +2,7 @@
 var ventanamodal = document.getElementById('modalformularioagregar');
 
 // Get the button that opens the modal
-var botoninvocar = document.getElementById("invocarmodalformularioagregar");
+var botoninvocar = document.getElementById("formularioAgregar");
 
 // Get the <span> element that closes the modal
 var xdecerrar = document.getElementsByClassName("close")[0];
