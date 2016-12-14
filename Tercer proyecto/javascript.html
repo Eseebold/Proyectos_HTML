@@ -12,36 +12,24 @@
      <link rel="stylesheet" href="css/estandar.css">
      <link rel="stylesheet" href="css/modal.css">
      <link rel="stylesheet" href="css/blinker.css">
-     <!-- -->
-
-
-
-     <script src="js/main.js"></script>
 </head>
 
 <body>
-  <div>
-
-  </div>
+     <div>
+     </div>
      <main class="flexcontainer">
-
           <section id="alumnos">
                <header>
                     <h2>Listado de Alumnos</h2></header>
                <div>
                     <div class="flexcontainer">
-                         
-                         
                          <div class="unoD4">
-                              <button id="formularioAgregar">Añadir</button>
+                              <button class="btn btn-info">Añadir</button>
                          </div>
                          <div class="unoD4">
-                              <button id="botonBorrar">Borrar</button>
+                              <button class="btn btn-danger">Borrar</button>
                          </div>
                     </div>
-
-
-
                     <span>Número de Alumnos</span>
                </div>
                <table id="listado-alumnos">
@@ -70,103 +58,98 @@
                               <td colspan="2" id="notamedia"></td>
                          </tr>
                     </tfoot>
-
                </table>
           </section>
-
-
-
-
-
-
      </main>
      <footer>
-         
      </footer>
      <!-- FIN FOOTER -->
      <!-- The Modal -->
-     <div id="modalformularioagregar" class="modal">
-
+     <div id="myModal" class="modal">
           <!-- Modal content -->
           <div class="modal-content">
                <div class="modal-header">
                     <span class="close">×</span>
                     <h2>Modal Header</h2>
                </div>
-               <div>
-                    <div class="flexcontainer">
-                         <div class="tresD4">
-                              <label for="dname">Dni</label>
-                              <input type="text" id="dname" name="dniname">
-                         </div>
-                         <div class="unoD4">
-                              <label for="cname">Color</label>
-                              <input type="color" name="cname">
-                         </div>
-                    </div>
-                    <div class="flexcontainer">
-                         <div class="unoD2">
-                              <label for="fname">First Name</label>
-                              <input type="text" id="fname" name="firstname">
-                         </div>
-                         <div class="unoD2">
-                              <label for="lname">Last Name</label>
-                              <input type="text" id="lname" name="lastname">
-                         </div>
-                    </div>
-               </div>
-               <div class="flexcontainer">
-                    <div class="unoD3">
-                         <label for="UF-1841">UF-1841</label>
-                         <input type="number" id="UF-1841" name="UF-1841" min="1" max="5">
+               <div class="modal-body">
 
-                    </div>
-                    <div class="unoD3">
-                         <label for="UF-1842">UF-1842</label>
-                         <input type="number" id="UF-1842" name="UF-1842" min="1" max="5">
-                    </div>
-                    <div class="unoD3">
-                         <label for="UF-1843">UF-1843</label>
-                         <input type="number" id="UF-1843" name="UF-183" min="1" max="5">
-                    </div>
+                    <form action="#" id="formAlumno" method="post">
 
-               </div>
-               <div class="flexcontainer">
+                         <div class="flexcontainer">
+                              <div class="tresD4">
+                                   <label for="dni">Dni</label>
+                                   <input type="text" id="dni" name="dni" maxlength="9">
+                              </div>
+                              <div class="unoD4">
+                                   <label for="corlor">Color</label>
+                                   <input type="color" name="color">
+                              </div>
+                         </div>
+                         <div class="flexcontainer">
+                              <div class="unoD2">
+                                   <label for="nombre">First Name</label>
+                                   <input type="text" id="nombre" name="nombre">
+                              </div>
+                              <div class="unoD2">
+                                   <label for="apellidos">Last Name</label>
+                                   <input type="text" id="apellidos" name="apellidos">
+                              </div>
+                         </div>
 
-                    <div class="unoD3">
-                         <label for="UF-1844">UF-1844</label>
-                         <input type="number" id="UF-1844" name="UF-1844" min="1" max="5">
-                    </div>
-                    <div class="unoD3">
-                         <label for="UF-1845">UF-1845</label>
-                         <input type="number" id="UF-1845" name="UF-1845" min="1" max="5">
-                    </div>
-                    <div class="unoD3">
-                         <label for="UF-1846">UF-1846</label>
-                         <input type="number" id="UF-1846" name="UF-1846" min="1" max="5">
-                    </div>
-               </div>
-               <div class="modal-footer">
-                    <div class="flexcontainer">
-                         <div class="unoD2">
-                              <button id="adoptar" name="Adoptar">Adoptar</button>
+                         <div class="flexcontainer">
+                              <div class="unoD3">
+                                   <label for="nuf1841">UF-1841</label>
+                                   <input type="number" id="nuf1841" name="nuf1841" min="1" max="5">
+
+                              </div>
+                              <div class="unoD3">
+                                   <label for="nuf1842">UF-1842</label>
+                                   <input type="number" id="nuf1842" name="nuf1842" min="1" max="5">
+                              </div>
+                              <div class="unoD3">
+                                   <label for="nuf1843">UF-1843</label>
+                                   <input type="number" id="nuf1843" name="nuf1843" min="1" max="5">
+                              </div>
                          </div>
-                         <div class="unoD2">
-                              <button id="abortar" name="Abortar">Abortar</button>
+                         <div class="flexcontainer">
+                              <div class="unoD3">
+                                   <label for="nuf1844">UF-1844</label>
+                                   <input type="number" id="nuf1844" name="nuf1844" min="1" max="5">
+                              </div>
+                              <div class="unoD3">
+                                   <label for="nuf1845">UF-1845</label>
+                                   <input type="number" id="nuf1845" name="nuf1845" min="1" max="5">
+                              </div>
+                              <div class="unoD3">
+                                   <label for="nuf1846">UF-1846</label>
+                                   <input type="number" id="nuf1846" name="nuf1846" min="1" max="5">
+                              </div>
                          </div>
-                    </div>
+                         <div class="modal-footer">
+                              <div class="flexcontainer">
+                                   <div class="unoD2">
+                                        <button class="btn btn-success" id="adoptar" name="Adoptar">Adoptar</button>
+                                   </div>
+                                   <div class="unoD2">
+                                        <button class="btn btn-info" id="abortar" name="Abortar">Abortar</button>
+                                   </div>
+                              </div>
+
+                         </div>
+                    </form>
                </div>
           </div>
+
      </div>
 
-    
+
      <!--   SCRIPTS -->
 
 
 
      <script src="https://code.jquery.com/jquery-1.12.0.min.js "></script>
      <script src="js/alumnos.js"></script>
-     <script src="js/modal.js"></script>
 
 
      <!-- FIN SCRIPTS -->

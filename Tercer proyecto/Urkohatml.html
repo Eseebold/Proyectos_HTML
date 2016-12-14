@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html class="no-js" lang="es">
+
+<head>
+     <meta charset="utf-8">
+     <meta http-equiv="x-ua-compatible" content="ie=edge">
+     <title>Ipartek</title>
+     <meta name="description" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <!-- Place favicon.ico in the root directory -->
+     <link rel="stylesheet" href="css/normalize.css">
+     <link rel="stylesheet" href="css/main.css">
+     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+     <script src="js/vendor/jquery-1.12.0.min.js"></script>
+     <script src="js/plugins.js"></script>
+     <script src="js/main.js"></script>
+</head>
+
+<body>
+
+     <header class="flexcontainer">
+          <h1>
+        <a href="http://formacion.ipartek.com">
+            <img class="ipartek-icon" src="img/logo-ipartek-servicios-informaticos.svg" alt="Ipartek" title="Ipartek">
+        </a>
+    </h1>
+          <nav>
+               <ul class="navigation flexcontainer">
+                    <li><a href="#alumnos">alumnos</a></li>
+                    <li><a href="#localizacion">alumnos</a></li>
+
+               </ul>
+          </nav>
+     </header>
+     <main class="flexcontainer">
+          <section id="alumnos">
+               <header>
+                    <h2>Listado de Alumnos</h2></header>
+               <div>
+                    <button class="btn btn-info">Añadir</button>
+                    <button class="btn btn-danger">Borrar</button>
+                    <span>Número de Alumnos</span>
+               </div>
+               <table id="listado-alumnos">
+                    <thead>
+                         <tr>
+                              <th align="center">
+                                   <input type="checkbox" title="seleccionar todo">
+                              </th>
+                              <th>Nombre</th>
+                              <th>Apellidos</th>
+                              <th>UF-1841</th>
+                              <th>UF-1842</th>
+                              <th>UF-1843</th>
+                              <th>UF-1844</th>
+                              <th>UF-1845</th>
+                              <th>UF-1846</th>
+                              <th>Nota Media</th>
+                              <th></th>
+                         </tr>
+                    </thead>
+                    <tfoot>
+                         <tr>
+                              <td colspan="8">Nota Media:</td>
+                              <td colspan="3"></td>
+                         </tr>
+                    </tfoot>
+                    <tbody>
+                    </tbody>
+               </table>
+          </section>
+          <section id="localizacion">
+               <header>
+                    <h2>localizacion</h2></header>
+               <div class="flexcontainer">
+
+               </div>
+          </section>
+     </main>
+     <footer>
+          Practicas con javascript
+     </footer>
+     <div id="myModal" class="modal">
+
+          <!-- Modal content -->
+          <div class="modal-content">
+               <div class="modal-header">
+                    <span class="close">×</span>
+                    <h2>Titulo</h2>
+               </div>
+               <div class="modal-body">
+
+
+                    <form action="#" id="formAlumno" method="post">
+
+                         <div class="flexcontainer">
+                              <label class="desc" for="dni">DNI</label>
+
+                              <input id="dni" name="dni" type="text" spellcheck="false" class="field text fn" value="" maxlength="9" autofocus>
+                         </div>
+                         <div class="flexcontainer">
+                              <label class="desc" for="nombre">Nombre</label>
+
+                              <input id="nombre" name="nombre" type="text" class="field text fn" value="" tabindex="1">
+                         </div>
+                         <div class="flexcontainer">
+                              <label class="desc" for="apellidos">Apellidos</label>
+
+                              <input id="apellidos" name="apellidos" type="text" class="field text fn" value="" tabindex="2">
+                         </div>
+                         <div class="flexcontainer ">
+                              <label class="desc" for="nuf1841">N. UF-1841</label>
+
+                              <input id="nuf1841" name="nuf1841" type="number" spellcheck="false" value="" tabindex="3">
+
+                         </div>
+                         <div class="flexcontainer ">
+                              <label class="desc" for="nuf1842">N. UF-1842</label>
+
+                              <input id="nuf1842" name="nuf1842" type="number" spellcheck="false" value="" tabindex="4">
+                         </div>
+                         <div class="flexcontainer ">
+                              <label class="desc" for="nuf1843">N. UF-1843</label>
+
+                              <input id="nuf1843" name="nuf1843" type="number" spellcheck="false" value="" maxlength="9" tabindex="5">
+                         </div>
+                         <div class="flexcontainer ">
+                              <label class="desc" for="nuf1844">N. UF-1844</label>
+
+                              <input id="nuf1844" name="nuf1844" type="number" spellcheck="false" value="" tabindex="6">
+                         </div>
+                         <div class="flexcontainer ">
+                              <label class="desc" for="nuf1845">N. UF-1845</label>
+
+                              <input id="nuf1845" name="nuf1845" type="number" spellcheck="false" value="" tabindex="7">
+                         </div>
+                         <div class="flexcontainer ">
+                              <label class="desc" for="nuf1846">N. UF-1846</label>
+
+                              <input id="nuf1846" name="nuf1846" type="number" spellcheck="false" value="" tabindex="8">
+                         </div>
+                         <div>
+                              <button class="btn btn-info">Cancelar</button>
+                              <button class="btn btn-success">Guardar</button>
+                         </div>
+
+                    </form>
+
+
+               </div>
+
+          </div>
+
+     </div>
+     <script>
+     </script>
+</body>
+
+</html>
