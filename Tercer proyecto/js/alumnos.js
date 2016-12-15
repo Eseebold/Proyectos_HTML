@@ -107,13 +107,13 @@ jQuery(document).ready(function ($) {
           return false;
      });
      // ACCIONES QUE SE EJECUTAN AL PULSAR EL BOTON AGREGAR
-     $("#alumnos").find('div button.btn-info').on("click", function (e) {
+     $("#alumnos").find('#btnagregaralumno').on("click", function (e) {
           e.preventDefault();
           $('#formAlumno').find('input').val("");
           $("#myModal").css("display", "block");
      });
      // ACCIONES QUE SE EJECUTAN AL PULSAR EL BOTON BORRAR
-     $("#alumnos").find("div button.btn-danger").on("click", function (e) {
+     $("#alumnos").find('#btnborraralumno').on("click", function (e) {
           e.preventDefault();
           //0 Recoger el dni de la vista
           $("#listado-alumnos").find("tbody input:checked").each(function (e) {
