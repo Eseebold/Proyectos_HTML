@@ -199,6 +199,7 @@ jQuery(document).ready(function ($) {
                     nombre: nombre,
                     apellidos: apellido,
                     dni: dni,
+                    nacimiento: edad,
                     notas: notas
                };
                console.log(datos);

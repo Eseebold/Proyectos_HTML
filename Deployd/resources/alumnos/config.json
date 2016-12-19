@@ -32,6 +32,14 @@
 			"required": false,
 			"id": "notas",
 			"order": 3
+		},
+		"nacimiento": {
+			"name": "nacimiento",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "nacimiento",
+			"order": 4
 		}
 	}
 }
