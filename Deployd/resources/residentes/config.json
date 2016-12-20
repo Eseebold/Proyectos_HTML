@@ -1,0 +1,29 @@
+{
+	"type": "Collection",
+	"properties": {
+		"Nombre": {
+			"name": "Nombre",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "Nombre",
+			"order": 0
+		},
+		"Apellidos": {
+			"name": "Apellidos",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "Apellidos",
+			"order": 1
+		},
+		"Direccion": {
+			"name": "Direccion",
+			"type": "object",
+			"typeLabel": "object",
+			"required": true,
+			"id": "Direccion",
+			"order": 2
+		}
+	}
+}

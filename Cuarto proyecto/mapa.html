@@ -5,46 +5,41 @@
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta charset="utf-8">
   <title>Directions service</title>
-<link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/map.css">
+  <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <script src="js/mapa.js"></script>
+
 </head>
 
 <body>
   <div id="floating-panel">
     <b>Start: </b>
-    <select id="start" onchange="calcRoute();">
-      <option value="chicago, il">Chicago</option>
-      <option value="st louis, mo">St Louis</option>
-      <option value="joplin, mo">Joplin, MO</option>
-      <option value="oklahoma city, ok">Oklahoma City</option>
-      <option value="amarillo, tx">Amarillo</option>
-      <option value="gallup, nm">Gallup, NM</option>
-      <option value="flagstaff, az">Flagstaff, AZ</option>
-      <option value="winona, az">Winona</option>
-      <option value="kingman, az">Kingman</option>
-      <option value="barstow, ca">Barstow</option>
-      <option value="san bernardino, ca">San Bernardino</option>
-      <option value="los angeles, ca">Los Angeles</option>
+    <select id="start">
+      <option value="Plaza de Don Federico Moyua, bilbao, bi">Paco</option>
+      <option value="Plaza Biribilla, bilbao, bi">Pepe</option>
+      <option value="Plaza Euskadi , bilbao, bi">Pingo</option>
+      <option value="Plaza Nueva, bilbao, bi">Plato</option>
+       <option value="Durango, Euskadi">Pluto</option>
     </select>
     <b>End: </b>
-    <select id="end" onchange="calcRoute();">
-      <option value="chicago, il">Chicago</option>
-      <option value="st louis, mo">St Louis</option>
-      <option value="joplin, mo">Joplin, MO</option>
-      <option value="oklahoma city, ok">Oklahoma City</option>
-      <option value="amarillo, tx">Amarillo</option>
-      <option value="gallup, nm">Gallup, NM</option>
-      <option value="flagstaff, az">Flagstaff, AZ</option>
-      <option value="winona, az">Winona</option>
-      <option value="kingman, az">Kingman</option>
-      <option value="barstow, ca">Barstow</option>
-      <option value="san bernardino, ca">San Bernardino</option>
-      <option value="los angeles, ca">Los Angeles</option>
+  <!--  <select id="end">
+      <option value="Plaza de Don Federico Moyua, bilbao, bi">Plaza de Don Federico Moyua</option>
+      <option value="Plaza Biribilla, bilbao, bi">Plaza Biribilla</option>
+      <option value="Plaza Euskadi , bilbao, bi">Plaza Euskadi</option>
+      <option value="Plaza Nueva, bilbao, bi">Plaza Nueva</option>
+    </select> -->
+      <b>Mode of Travel: </b>
+    <select id="mode">
+      <option value="DRIVING">Driving</option>
+      <option value="WALKING">Walking</option>
+      <option value="BICYCLING">Bicycling</option>
+      <option value="TRANSIT">Transit</option>
     </select>
   </div>
+  <div id="right-panel"></div>
   <div id="map"></div>
-
-  <script src="js/main.js"></script>
-
+  &nbsp;
+  <div id="warnings-panel"></div>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVQIzu1Kcx_NNQYuJEXwCn8w3aDWYfKWo&callback=initMap" async defer></script>
 </body>
 
