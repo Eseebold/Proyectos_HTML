@@ -1,3 +1,82 @@
+const URL = "http://localhost:2403/residentes";
+
+jQuery(document).ready(function ($) {
+var $div = $('#floating-panel');
+  function ajax(opciones) {
+    return new Promise(function (resolve, reject) {
+      $.ajax(opciones).done(resolve).fail(reject);
+    });
+  }
+
+  function recogerErrorAjax(jqXHR, textStatus, errorThrown) {
+    alert("Error:" + jqXHR.toString() + textStatus + errorThrown);
+  }
+
+  function parseData(data) {
+    var datos = {};
+    datos.id = data.Id;
+    datos.nombre = data.Nombre;
+    datos.dni = data.dni;
+    datos.apellidos = data.Apellidos;
+    datos.Direccion = {};
+
+    
+    if (typeof data.Direccion !== 'undefined') {
+      datos.Direccion.direccion = data.Direccion.direccion;
+      datos.Direccion.numero = data.Direccion.numero;
+      datos.Direccion.cp = data.Direccion.cp;
+      datos.Direccion.ciudad = data.Direccion.ciudad;
+      datos.Direccion.region = data.Direccion.region;
+      datos.Direccion.pais = data.Direccion.pais;
+    } else {
+      datos.Direccion.direccion = "";
+      datos.Direccion.numero = "";
+      datos.Direccion.cp = "";
+      datos.Direccion.ciudad = "";
+      datos.Direccion.region = "";
+      datos.Direccion.pais = "";
+
+    }
+    return datos;
+  }
+
+  function cargarUbicaciones(data) {
+    for (var i = 0; i < data.length; i++) {
+      var datos = {};
+      datos = parseData(data[i]);
+      datosToHTML(datos);
+       console.log(data[i]);
+    }
+  }
+
+  function cargarMensaje(mensaje) {
+    alert(mensaje);
+  }
+
+  function datosToHTML(datos) {
+
+ /*   var html_text = "<option value='" + datos.ubicacion.direccion +
+      datos.ubicacion.ciudad + datos.ubicacion.pais + "'>" + datos.nombre + "</option>";
+*/
+    var html_text = "<option value='"+ datos.Direccion.direccion+" "+datos.Direccion.numero+","+ datos.Direccion.ciudad+","+ datos.Direccion.pais+"'>"+datos.nombre+"</option>";
+
+    $div.find('select#start').append(html_text);
+    $div.find('select#end').append(html_text);
+  }
+
+  ajax({
+      url: URL,
+      type: "GET"
+    })
+    .then(cargarUbicaciones)
+    .catch(function errorHandler(error) {
+      console.log(error);
+    });
+
+  console.log("exit");
+
+});
+
 function initMap() {
   var directionsDisplay = new google.maps.DirectionsRenderer({
     map: map
@@ -31,19 +110,14 @@ function initMap() {
     calculateAndDisplayRoute(
       directionsDisplay, directionsService, markerArray, stepDisplay, map, directionsDisplay);
   };
-  
+
   document.getElementById('start').addEventListener('change', onChangeHandler);
- // document.getElementById('end').addEventListener('change', onChangeHandler);
+   document.getElementById('end').addEventListener('change', onChangeHandler);
   document.getElementById('mode').addEventListener('change', onChangeHandler);
   directionsDisplay.setMap(map);
   directionsDisplay.setPanel(document.getElementById('right-panel'));
 
 }
-
-
-
-
-
 
 function calculateAndDisplayRoute(directionsDisplay, directionsService,
   markerArray, stepDisplay, map) {
@@ -54,12 +128,17 @@ function calculateAndDisplayRoute(directionsDisplay, directionsService,
     markerArray[i].setMap(null);
   }
 
+    
+
   directionsService.route({
     origin: document.getElementById('start').value,
-    //    destination: document.getElementById('end').value,
-    destination: "Masustegi Kalea,bilba,bi",
+    destination: document.getElementById('end').value,
     travelMode: google.maps.TravelMode[selectedMode]
-  }, function (response, status) {
+  },
+                          
+                          
+                          
+    function (response, status) {
     // Route the directions and pass the response to a function to create
     // markers for each step.
     if (status === google.maps.DirectionsStatus.OK) {

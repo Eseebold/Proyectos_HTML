@@ -103,7 +103,7 @@ jQuery(document).ready(function($) {
         }
         var html_text = "<tr>" +
             "<td align='center'><input type='checkbox' value='" + datos.id + "'/></td>" +
-            "<td>" + datos.nombre + "</td>" +
+            "<td>" + datos. + "</td>" +
             "<td>" + datos.apellidos + "</td>" +
             "<td>" + datos.notas.UF1841 + "</td>" +
             "<td>" + datos.notas.UF1842 + "</td>" +
