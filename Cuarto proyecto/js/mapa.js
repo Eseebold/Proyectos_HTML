@@ -1,7 +1,9 @@
 const URL = "http://localhost:2403/residentes";
+// var database = firebase.database();
 
 jQuery(document).ready(function ($) {
-var $div = $('#floating-panel');
+  var $div = $('#floating-panel');
+
   function ajax(opciones) {
     return new Promise(function (resolve, reject) {
       $.ajax(opciones).done(resolve).fail(reject);
@@ -20,7 +22,7 @@ var $div = $('#floating-panel');
     datos.apellidos = data.Apellidos;
     datos.Direccion = {};
 
-    
+
     if (typeof data.Direccion !== 'undefined') {
       datos.Direccion.direccion = data.Direccion.direccion;
       datos.Direccion.numero = data.Direccion.numero;
@@ -45,7 +47,7 @@ var $div = $('#floating-panel');
       var datos = {};
       datos = parseData(data[i]);
       datosToHTML(datos);
-       console.log(data[i]);
+      console.log(data[i]);
     }
   }
 
@@ -55,10 +57,10 @@ var $div = $('#floating-panel');
 
   function datosToHTML(datos) {
 
- /*   var html_text = "<option value='" + datos.ubicacion.direccion +
+    /*   var html_text = "<option value='" + datos.ubicacion.direccion +
       datos.ubicacion.ciudad + datos.ubicacion.pais + "'>" + datos.nombre + "</option>";
 */
-    var html_text = "<option value='"+ datos.Direccion.direccion+" "+datos.Direccion.numero+","+ datos.Direccion.ciudad+","+ datos.Direccion.pais+"'>"+datos.nombre+"</option>";
+    var html_text = "<option value='" + datos.Direccion.direccion + " " + datos.Direccion.numero + "," + datos.Direccion.ciudad + "," + datos.Direccion.pais + "'>" + datos.nombre + "</option>";
 
     $div.find('select#start').append(html_text);
     $div.find('select#end').append(html_text);
@@ -112,7 +114,7 @@ function initMap() {
   };
 
   document.getElementById('start').addEventListener('change', onChangeHandler);
-   document.getElementById('end').addEventListener('change', onChangeHandler);
+  document.getElementById('end').addEventListener('change', onChangeHandler);
   document.getElementById('mode').addEventListener('change', onChangeHandler);
   directionsDisplay.setMap(map);
   directionsDisplay.setPanel(document.getElementById('right-panel'));
@@ -128,37 +130,27 @@ function calculateAndDisplayRoute(directionsDisplay, directionsService,
     markerArray[i].setMap(null);
   }
 
-    
+
 
   directionsService.route({
-    origin: document.getElementById('start').value,
-    destination: document.getElementById('end').value,
-    travelMode: google.maps.TravelMode[selectedMode]
-  },
-                          
-                          
-                          
+      origin: document.getElementById('start').value,
+      destination: document.getElementById('end').value,
+      travelMode: google.maps.TravelMode[selectedMode]
+    },
+
     function (response, status) {
-    // Route the directions and pass the response to a function to create
-    // markers for each step.
-    if (status === google.maps.DirectionsStatus.OK) {
-      document.getElementById('warnings-panel').innerHTML =
-        '<b>' + response.routes[0].warnings + '</b>';
-      directionsDisplay.setDirections(response);
-      showSteps(response, markerArray, stepDisplay, map);
-    } else {
-      window.alert('Directions request failed due to ' + status);
-    }
-  });
+      // Route the directions and pass the response to a function to create
+      // markers for each step.
+      if (status === google.maps.DirectionsStatus.OK) {
+        document.getElementById('warnings-panel').innerHTML =
+          '<b>' + response.routes[0].warnings + '</b>';
+        directionsDisplay.setDirections(response);
+        showSteps(response, markerArray, stepDisplay, map);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
 }
-
-
-
-
-
-
-
-
 
 function showSteps(directionResult, markerArray, stepDisplay, map) {
   // For each step, place a marker, and add the text to the marker's infowindow.

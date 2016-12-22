@@ -13,311 +13,369 @@ $.noConflict();
 const URL = "http://localhost:2403/alumnos";
 
 jQuery(document).ready(function ($) {
-     function ajax(opciones) {
-          return new Promise(function (resolve, reject) {
-               $.ajax(opciones).done(resolve).fail(reject);
-          });
-     }
+  function ajax(opciones) {
+    return new Promise(function (resolve, reject) {
+      $.ajax(opciones).done(resolve).fail(reject);
+    });
+  }
 
-     function cargarAlumnos(data) {
-          for (var i = 0; i < data.length; i++) {
-               var id = data[i].id;
-              // var dni = data[i].dni;
-               var nombre = data[i].nombre;
-               var apellido = data[i].apellidos;
-               var notas = {};
+  function cargarAlumnos(data) {
+  var  drawNotas={
+    'cero':0,
+    'uno':0,
+    'dos':0,
+    'tres':0,
+    'cuatro':0,
+    'cinco':0,
+    'seis':0,
+    'siete':0,
+    'ocho':0,
+    'nueve':0,
+    'diez':0
+  }
+    var cuentaNotas = {};
+    for (var i = 0; i < data.length; i++) {
+      var id = data[i].id;
+      // var dni = data[i].dni;
+      var nombre = data[i].nombre;
+      var apellido = data[i].apellidos;
+      var notas = {};
 
-               if (data[i].notas != undefined) {
-                    notas.UF1841 = data[i].notas.UF1841;
-                    notas.UF1842 = data[i].notas.UF1841;
-                    notas.UF1843 = data[i].notas.UF1843;
-                    notas.UF1844 = data[i].notas.UF1844;
-                    notas.UF1845 = data[i].notas.UF1845;
-                    notas.UF1846 = data[i].notas.UF1846;
-               } else {
-                    notas.UF1841 = "-";
-                    notas.UF1842 = "-";
-                    notas.UF1843 = "-";
-                    notas.UF1844 = "-";
-                    notas.UF1845 = "-";
-                    notas.UF1846 = "-";
-               }
 
-               insertarAlumnoTabla(id, nombre, apellido, notas);
+      if (data[i].notas != undefined) {
+        notas.UF1841 = data[i].notas.UF1841;
+        asignarNota(notas.UF1841)
+        console.log(drawNotas[notas.UF1841]);
+        notas.UF1842 = data[i].notas.UF1841;
+        notas.UF1843 = data[i].notas.UF1843;
+        notas.UF1844 = data[i].notas.UF1844;
+        notas.UF1845 = data[i].notas.UF1845;
+        notas.UF1846 = data[i].notas.UF1846;
+      } else {
+        notas.UF1841 = "-";
+        notas.UF1842 = "-";
+        notas.UF1843 = "-";
+        notas.UF1844 = "-";
+        notas.UF1845 = "-";
+        notas.UF1846 = "-";
+      }
+
+
+      insertarAlumnoTabla(id, nombre, apellido, notas);
+    }
+    mostrarNAlumnos(data.length);
+  }
+
+  function recogerErrorAjax(jqXHR, textStatus, errorThrown) {
+    alert("Error:" + jqXHR.toString() + textStatus + errorThrown);
+  }
+
+  ajax({
+      url: URL,
+      type: "GET"
+    })
+    .then(cargarAlumnos, recogerErrorAjax)
+    .catch(function errorHandler(error) {});
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  // TO-DO BOTON EDITAR
+  $('#listado-alumnos').find("tbody button").click(function (e) {
+    e.preventDefault();
+    alert("HAs pulsado en editar click");
+  });
+  // TO-DO BOTON EDITAR
+  $('#listado-alumnos').find('tbody').on("click", "button", function (e) {
+    e.preventDefault();
+    // alert("HAs pulsado en editar con ON");
+    var datos = {
+      id: '',
+      nombre: '',
+      dni: '',
+      apellidos: '',
+      notas: {}
+    };
+    ajax({
+        url: URL,
+        type: "PUT",
+        data: datos
+      })
+      .then(cargarMensaje("El alumno NO ha sido modificado"), recogerErrorAjax)
+      .catch(function errorHandler(error) {
+
+      });
+  });
+  // COMPRUEBA QUE ESTE EL CHECKBOX MARCADO
+  $("#listado-alumnos thead input").click(function (e) {
+    var $input = $("#listado-alumnos").find('tbody input');
+    if ($(this).prop("checked")) {
+      $input.prop("checked", true);
+    } else {
+      $input.prop("checked", false);
+    }
+  });
+  $("a[href='s1'],a[href='#s2']").click(function (e) {
+    e.preventDefault();
+
+  });
+  $('#productos').find("a.btn").click(function (e) {
+    var dni = $('#dni').val();
+    var letra = calcularLetra(parseInt(dni, 10));
+    $('#productos').find("span.resultado").text(letra);
+    e.preventDefault();
+    return false;
+  });
+  // ACCIONES QUE SE EJECUTAN AL PULSAR EL BOTON AGREGAR
+  $("#alumnos").find('#btnagregaralumno').on("click", function (e) {
+    e.preventDefault();
+    $('#formAlumno').find('input').val("");
+    $("#myModal").css("display", "block");
+  });
+  // ACCIONES QUE SE EJECUTAN AL PULSAR EL BOTON BORRAR
+  $("#alumnos").find('#btnborraralumno').on("click", function (e) {
+    e.preventDefault();
+    //0 Recoger el dni de la vista
+    $("#listado-alumnos").find("tbody input:checked").each(function (e) {
+      var codigo = $(this).val();
+      console.log(codigo);
+      ajax({
+          url: URL,
+          type: "DELETE",
+          data: {
+            id: codigo
           }
-          console.log(data);
-          mostrarNAlumnos(data.length);
-     }
+        })
+        .then(cargarMensaje("El alumno ha sido borrado"), recogerErrorAjax)
+        .catch(function errorHandler(error) {
 
-     function recogerErrorAjax(jqXHR, textStatus, errorThrown) {
-          alert("Error:" + jqXHR.toString() + textStatus + errorThrown);
-     }
+        });
 
-     ajax({
-               url: URL,
-               type: "GET"
-          })
-          .then(cargarAlumnos, recogerErrorAjax)
-          .catch(function errorHandler(error) {});
-     // TO-DO BOTON EDITAR
-     $('#listado-alumnos').find("tbody button").click(function (e) {
-          e.preventDefault();
-          alert("HAs pulsado en editar click");
-     });
-     // TO-DO BOTON EDITAR
-     $('#listado-alumnos').find('tbody').on("click", "button", function (e) {
-          e.preventDefault();
-          // alert("HAs pulsado en editar con ON");
-          var datos = {
-               id: '',
-               nombre: '',
-               dni: '',
-               apellidos: '',
-               notas: {}
-          };
-          ajax({
-                    url: URL,
-                    type: "PUT",
-                    data: datos
-               })
-               .then(cargarMensaje("El alumno NO ha sido modificado"), recogerErrorAjax)
-               .catch(function errorHandler(error) {
 
-               });
-     });
-     // COMPRUEBA QUE ESTE EL CHECKBOX MARCADO
-     $("#listado-alumnos thead input").click(function (e) {
-          var $input = $("#listado-alumnos").find('tbody input');
-          if ($(this).prop("checked")) {
-               $input.prop("checked", true);
-          } else {
-               $input.prop("checked", false);
-          }
-     });
-       //cargarAlumnos();
-     $("a[href='s1'],a[href='#s2']").click(function (e) {
-          e.preventDefault();
+    });
+    //2Borrado de la vista
+    borradoVista();
+    //3 Actulizar el nº de Alumnos
+    mostrarNAlumnos(($('#listado-alumnos').find('tbody tr input').parents('tr').length));
+  });
 
-     });
-     $('#productos').find("a.btn").click(function (e) {
-          var dni = $('#dni').val();
-          var letra = calcularLetra(parseInt(dni, 10));
-          $('#productos').find("span.resultado").text(letra);
-          e.preventDefault();
-          return false;
-     });
-     // ACCIONES QUE SE EJECUTAN AL PULSAR EL BOTON AGREGAR
-     $("#alumnos").find('#btnagregaralumno').on("click", function (e) {
-          e.preventDefault();
-          $('#formAlumno').find('input').val("");
-          $("#myModal").css("display", "block");
-     });
-     // ACCIONES QUE SE EJECUTAN AL PULSAR EL BOTON BORRAR
-     $("#alumnos").find('#btnborraralumno').on("click", function (e) {
-          e.preventDefault();
-          //0 Recoger el dni de la vista
-          $("#listado-alumnos").find("tbody input:checked").each(function (e) {
-               var codigo = $(this).val();
-               console.log(codigo);
-               ajax({
-                         url: URL,
-                         type: "DELETE",
-                         data: {
-                              id: codigo
-                         }
-                    })
-                    .then(cargarMensaje("El alumno ha sido borrado"), recogerErrorAjax)
-                    .catch(function errorHandler(error) {
 
-                    });
-                           
-        
-          });
-          //2Borrado de la vista
-          borradoVista();
-          //3 Actulizar el nº de Alumnos
+  // COSAS QUE PASAN DENTRO DE LA MODAL
+  $("#myModal button.btn-info,#myModal .close").click(function (e) {
+    e.preventDefault();
+    $("#myModal").css("display", "none");
+  });
+  // COSAS QUE PASAN DENTRO DE LA MODAL
+  $('#myModal').find(".btn-success").on("click", function (e) {
+    e.preventDefault();
+    var valido = true;
+    var dni = $("#dni").val();
+    var nombre = $("#nombre").val();
+    var apellido = $("#apellidos").val();
+    var nuf1841 = parseInt($("#nuf1841").val());
+    var nuf1842 = parseInt($("#nuf1842").val());
+    var nuf1843 = parseInt($("#nuf1843").val());
+    var nuf1844 = parseInt($("#nuf1844").val());
+    var nuf1845 = parseInt($("#nuf1845").val());
+    var nuf1846 = parseInt($("#nuf1846").val());
+
+    if (!validarDNI(dni)) {
+      valido = false;
+    }
+    if (!validarTexto(nombre, 3)) {
+      valido = false;
+    }
+    if (!validarTexto(apellido, 7)) {
+      valido = false;
+    }
+    if (!validarNotas(nuf1841)) {
+      valido = false;
+    }
+    if (!validarNotas(nuf1842)) {
+      valido = false;
+    }
+    if (!validarNotas(nuf1843)) {
+      valido = false;
+    }
+    if (!validarNotas(nuf1844)) {
+      valido = false;
+    }
+    if (!validarNotas(nuf1845)) {
+      valido = false;
+    }
+    if (!validarNotas(nuf1846)) {
+      valido = false;
+    }
+    if (valido) {
+      var notas = {
+        'UF1841': nuf1841,
+        'UF1842': nuf1842,
+        'UF1843': nuf1843,
+        'UF1844': nuf1844,
+        'UF1845': nuf1845,
+        'UF1846': nuf1846
+      };
+      datos = {
+        nombre: nombre,
+        apellidos: apellido,
+        dni: dni,
+        nacimiento: edad,
+        notas: notas
+      };
+      var id = '';
+      ajax({
+          url: URL,
+          type: "POST",
+          data: datos
+        })
+        .then(function (data) {
+          id = data.id;
+          console.log(id);
+          insertarAlumnoTabla(id, nombre, apellido, notas);
+          cargarMensaje("El alumno ha sido Guardado");
           mostrarNAlumnos(($('#listado-alumnos').find('tbody tr input').parents('tr').length));
-     });
+
+        }, recogerErrorAjax)
+        .catch(function errorHandler(error) {
+
+        });
+
+      $("#myModal").css("display", "none");
+
+    } else {
+      console.log("tiene errores");
+    }
+  });
+
+  function insertarAlumnoTabla(id, nombre, apellido, notas) {
+    var html_text = "<tr>" +
+      "<td align='center'><input type='checkbox' value='" + id + "'/></td>" +
+      "<td>" + nombre + "</td>" +
+      "<td>" + apellido + "</td>" +
+      "<td>" + notas.UF1841 + "</td>" +
+      "<td>" + notas.UF1842 + "</td>" +
+      "<td>" + notas.UF1843 + "</td>" +
+      "<td>" + notas.UF1844 + "</td>" +
+      "<td>" + notas.UF1845 + "</td>" +
+      "<td>" + notas.UF1846 + "</td>" +
+      "<td>" + calcularMedia([notas['UF1841'], notas['UF1842'], notas['UF1843'], notas['UF1844'], notas['UF1845'], notas['UF1846']]).toFixed(2) + "</td>" +
+      "<td align='center'><button>Editar</button></td>" +
+      "</tr>";
+    // TO-DO
+    $('#listado-alumnos').find('tbody').append(html_text);
+
+  }
+
+  function mostrarNAlumnos(longitud) {
+    // FUNCION QUE CUENTA EL NUMERO DE ALUMNOS
+    $('#alumnos').find('div span:eq(0)').text("Número de Alumnos: " + longitud);
+
+  }
+
+  function borradoVista() {
+    // FUNCION QUE BORRA EL REGISTRO DE LA VISTA
+    $('#listado-alumnos').find('tbody tr input:checked').parents('tr').remove();
+  }
+  // TO-DO
+  $("#formAlumno").submit(function (e) {
+    e.preventDefault();
+    return false;
+  })
 
 
-     // COSAS QUE PASAN DENTRO DE LA MODAL
-     $("#myModal button.btn-info,#myModal .close").click(function (e) {
-          e.preventDefault();
-          $("#myModal").css("display", "none");
-     });
-     // COSAS QUE PASAN DENTRO DE LA MODAL
-     $('#myModal').find(".btn-success").on("click", function (e) {
-          e.preventDefault();
-          var valido = true;
-          var dni = $("#dni").val();
-          var nombre = $("#nombre").val();
-          var apellido = $("#apellidos").val();
-          var nuf1841 = parseInt($("#nuf1841").val());
-          var nuf1842 = parseInt($("#nuf1842").val());
-          var nuf1843 = parseInt($("#nuf1843").val());
-          var nuf1844 = parseInt($("#nuf1844").val());
-          var nuf1845 = parseInt($("#nuf1845").val());
-          var nuf1846 = parseInt($("#nuf1846").val());
-
-          if (!validarDNI(dni)) {
-               valido = false;
-          }
-          if (!validarTexto(nombre, 3)) {
-               valido = false;
-          }
-          if (!validarTexto(apellido, 7)) {
-               valido = false;
-          }
-          if (!validarNotas(nuf1841)) {
-               valido = false;
-          }
-          if (!validarNotas(nuf1842)) {
-               valido = false;
-          }
-          if (!validarNotas(nuf1843)) {
-               valido = false;
-          }
-          if (!validarNotas(nuf1844)) {
-               valido = false;
-          }
-          if (!validarNotas(nuf1845)) {
-               valido = false;
-          }
-          if (!validarNotas(nuf1846)) {
-               valido = false;
-          }
-          if (valido) {
-               var notas = {
-                    'UF1841': nuf1841,
-                    'UF1842': nuf1842,
-                    'UF1843': nuf1843,
-                    'UF1844': nuf1844,
-                    'UF1845': nuf1845,
-                    'UF1846': nuf1846
-               };
-               datos = {
-                    nombre: nombre,
-                    apellidos: apellido,
-                    dni: dni,
-                    nacimiento: edad,
-                    notas: notas
-               };
-               console.log(datos);
-               var id = '';
-               ajax({
-                         url: URL,
-                         type: "POST",
-                         data: datos
-                    })
-                    .then(function (data) {
-                         id = data.id;
-                         console.log(id);
-                         insertarAlumnoTabla(id, nombre, apellido, notas);
-                         cargarMensaje("El alumno ha sido Guardado");
-          mostrarNAlumnos(($('#listado-alumnos').find('tbody tr input').parents('tr').length));
-
-                    }, recogerErrorAjax)
-                    .catch(function errorHandler(error) {
-
-                    });
-
-               $("#myModal").css("display", "none");
-
-          } else {
-               console.log("tiene errores");
-          }
-     });
-
-     function insertarAlumnoTabla(id, nombre, apellido, notas) {
-          var html_text = "<tr>" +
-               "<td align='center'><input type='checkbox' value='" + id  + "'/></td>" +
-               "<td>" + nombre + "</td>" +
-               "<td>" + apellido + "</td>" +
-               "<td>" + notas.UF1841 + "</td>" +
-               "<td>" + notas.UF1842 + "</td>" +
-               "<td>" + notas.UF1843 + "</td>" +
-               "<td>" + notas.UF1844 + "</td>" +
-               "<td>" + notas.UF1845 + "</td>" +
-               "<td>" + notas.UF1846 + "</td>" +
-               "<td>" + calcularMedia([notas['UF1841'], notas['UF1842'], notas['UF1843'], notas['UF1844'], notas['UF1845'], notas['UF1846']]).toFixed(2) + "</td>" +
-               "<td align='center'><button>Editar</button></td>" +
-               "</tr>";
-          // TO-DO
-          $('#listado-alumnos').find('tbody').append(html_text);
-          
-     }
-
-     function mostrarNAlumnos(longitud) {
-          // FUNCION QUE CUENTA EL NUMERO DE ALUMNOS
-          $('#alumnos').find('div span:eq(0)').text("Número de Alumnos: " + longitud);
-          
-     }
-
-     function borradoVista() {
-          // FUNCION QUE BORRA EL REGISTRO DE LA VISTA
-          $('#listado-alumnos').find('tbody tr input:checked').parents('tr').remove();
-     }
-     // TO-DO
-     $("#formAlumno").submit(function (e) {
-          e.preventDefault();
-          return false;
-     })
-
-});
+}); // FIN DE DOCUMENT READY
 // FUNCION QUE CALCULA LA LETRA A PARTIR DE LOS 8 DIGITOS DEL DNI
 function calcularLetra(numero) {
-     var letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
-     var letraCalculada;
-     letraCalculada = letras[numero % 23];
-     return letraCalculada;
+  var letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
+  var letraCalculada;
+  letraCalculada = letras[numero % 23];
+  return letraCalculada;
 }
 // FUNCION QUE CALCULA LA MEDIA DE UNA SERIE DE NUMEROS
 function calcularMedia(numeros) {
-     var media = 0;
-     var len = numeros.length
-     for (var i = 0; i < len; i++) {
-          if ((numeros[i])) {
-               media += parseInt(numeros[i]);
-          }
-     }
-     media = media / len;
-     return media;
+  var media = 0;
+  var len = numeros.length
+  for (var i = 0; i < len; i++) {
+    if ((numeros[i])) {
+      media += parseInt(numeros[i]);
+    }
+  }
+  media = media / len;
+  return media;
+  
 }
 // FUNCION QUE VALIDA QUE UN DNI TENGA LA LETRA CORRECTA
 function validarDNI(dni) {
-     var REGEX = /^\d{8}[a-zA-Z]$/; // \d ==> [0-9]
-     //var REGEX = new RegExp("\d{8}[a-zA-Z]");// \d ==> [0-9]
-     //  var len = 9;
-     var valido = false;
-     if (REGEX.test(dni)) {
-          var dniNumero = dni.substring(0, dni.length - 1);
-          var dniLetra = dni.substring(dni.length - 1, dni.length).toUpperCase();
-          var letraCalculada = calcularLetra(parseInt(dniNumero, 10));
-          if (letraCalculada == dniLetra) {
-               valido = true;
-          }
-     }
-     return valido;
+  var REGEX = /^\d{8}[a-zA-Z]$/; // \d ==> [0-9]
+  //var REGEX = new RegExp("\d{8}[a-zA-Z]");// \d ==> [0-9]
+  //  var len = 9;
+  var valido = false;
+  if (REGEX.test(dni)) {
+    var dniNumero = dni.substring(0, dni.length - 1);
+    var dniLetra = dni.substring(dni.length - 1, dni.length).toUpperCase();
+    var letraCalculada = calcularLetra(parseInt(dniNumero, 10));
+    if (letraCalculada == dniLetra) {
+      valido = true;
+    }
+  }
+  return valido;
 }
 // FUNCION QUE CALCULA QUE UN TEXTO SEA MENOR DE UNA LONGITUD SELECCIONADA
 function validarTexto(texto, nLen) {
-     var valido = false;
-     if (texto.length >= nLen) {
-          valido = true;
-     }
-     return valido;
+  var valido = false;
+  if (texto.length >= nLen) {
+    valido = true;
+  }
+  return valido;
 }
 // FUNCION QUE VALIDA QUE UNA NOTA ESTE ENTRE 0 Y 10 AMBOS INCLUSIVE
 function validarNotas(nota) {
-     var valido = false;
-     if (nota >= 0 && nota <= 10) {
-          valido = true;
-     }
-     return valido;
+  var valido = false;
+  if (nota >= 0 && nota <= 10) {
+    valido = true;
+  }
+  return valido;
 }
 //  FUNCON QUE CARGA MENSAJES
+function cargarMensaje(texto) {
+  console.log(texto);
+}
 
-function cargarMensaje(texto)
-{
-     console.log(texto);
+
+google.charts.load('current', {packages: ['corechart']});
+google.charts.setOnLoadCallback(drawBasic);
+
+function drawBasic() {
+    var data = google.visualization.arrayToDataTable([
+        ['Notas', 'Estadisticas Notas'],
+        ['0',  drawNotas.cero],
+        ['1',  drawNotas.uno],
+        ['2',  drawNotas.dos],
+        ['3',  drawNotas.tres],
+        ['4',  drawNotas.cuatro],
+        ['5',  drawNotas.cinco],
+        ['6',  drawNotas.seis],
+        ['7',  drawNotas.siete],
+        ['8',  drawNotas.ocho],
+        ['9',  drawNotas.nueve],
+        ['10', drawNotas.diez]
+    ]);
+
+    var options = {
+        title: 'Estadisticas Notas Alumnos',
+        hAxis: {title: 'Notas',  titleTextStyle: {color: '#333'}},
+        vAxis: {minValue: 0}
+    };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
 }
